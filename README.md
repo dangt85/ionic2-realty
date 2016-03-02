@@ -2,24 +2,34 @@
 
 1. Install the the latest beta version of the Ionic CLI:
     ```
-    npm install -g ionic@beta
-    ```
-    
-1. Create a project:
-    ```
-    ionic start IonicRealty sidemenu --v2
+    npm i -g ionic@beta
     ```
 
-1. Replace the project’s app folder with the app folder in this repository
+
+1. Clone this repository into your local file system:
+    ```
+    git clone https://github.com/dangt85/ionic2-realty.git
+    ```
+~~1. Create a project:~~
+    ```
+    ~~ionic start IonicRealty sidemenu --v2~~
+    ```
+
+~~1. Replace the project’s app folder with the app folder in this repository~~
 
 1. Navigate to the IonicRealty directory:
     ```
-    cd IonicRealty
+    cd ionic2-realty
     ```
-    
+
+1. Install all dependencies:
+    ```
+    npm i
+    ```
+
 1. Start the app in the browser
     ```
     ionic serve
     ```
-    
-From here, you can build and deploy the app on different platforms using the traditional Ionic commands (`ionic build ios`, etc.)
+
+From here, you can build and deploy the app on different platforms using the traditional Ionic commands (`ionic run android`, etc.)
