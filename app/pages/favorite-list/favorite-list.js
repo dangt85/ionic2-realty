@@ -32,5 +32,4 @@ export class FavoriteListPage {
   deleteItem(event, property) {
     this.propertyService.unfavorite(property).subscribe();
   }
-
 }

@@ -20,6 +20,4 @@ export class BrokerDetailsPage {
       broker => this.broker = broker
     );
   }
-
-
 }
