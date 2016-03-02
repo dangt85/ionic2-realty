@@ -10,12 +10,12 @@
     ```
     git clone https://github.com/dangt85/ionic2-realty.git
     ```
-~~1. Create a project:~~
-    ~~```
+~~1. Create a project:
+    ```
     ionic start IonicRealty sidemenu --v2
-    ```~~
+    ```
 
-~~1. Replace the project’s app folder with the app folder in this repository~~
+1. Replace the project’s app folder with the app folder in this repository~~
 
 1. Navigate to the IonicRealty directory:
     ```
