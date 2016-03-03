@@ -1,4 +1,4 @@
-export let BROKERS = [
+exports.data = [
     {
         id: 1,
         firstName: "Caroline",

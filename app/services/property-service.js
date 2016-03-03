@@ -1,60 +1,61 @@
 import {Injectable} from 'angular2/core';
-import {PROPERTIES} from './mock-properties';
+import {SERVER_URL} from './config';
+import {Http, Headers, RequestOptions} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/Rx';
 
-let favorites = [];
+let favorites = [],
+    propertiesURL = SERVER_URL + 'properties/',
+    favoritesURL = propertiesURL + 'favorites/',
+    likesURL = propertiesURL + 'likes/';
 
 @Injectable()
 export class PropertyService {
+  static get parameters() {
+    return [[Http]];
+  }
 
-    findAll() {
-        return Observable.create(observer => {
-            observer.next(PROPERTIES);
-            observer.complete();
-        });
-    }
+  constructor (http) {
+    this.http = http;
+  }
 
-    getFavorites() {
-        return Observable.create(observer => {
-            observer.next(favorites);
-            observer.complete();
-        });
-    }
+  findAll() {
+    return this.http.get(propertiesURL)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
 
-    favorite(property) {
-        return Observable.create(observer => {
-            let exists = false;
-            for (let i = 0; i < favorites.length; i++) {
-                if (favorites[i].id === property.id) {
-                    exists = true;
-                    break;
-                }
-            }
-            if (!exists) favorites.push(property);
-            observer.next();
-            observer.complete();
-        });
-    }
+  getFavorites() {
+    return this.http.get(favoritesURL)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
 
-    unfavorite(property) {
-        return Observable.create(observer => {
-            for (let i = 0; i < favorites.length; i++) {
-                if (favorites[i].id === property.id) {
-                    favorites.splice(i, 1);
-                    break;
-                }
-            }
-            observer.next();
-            observer.complete();
-        });
-    }
+  like(property) {
+    let body = JSON.stringify(property);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(likesURL, body, options)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
 
-    like(property) {
-        return Observable.create(observer => {
-            PROPERTIES[property.id - 1].likes++;
-            observer.next(PROPERTIES[property.id - 1].likes);
-            observer.complete();
-        });
-    }
+  favorite(property) {
+    let body = JSON.stringify(property);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(favoritesURL, body, options)
+      .catch(this.handleError);
+  }
 
+  unfavorite(property) {
+    return this.http.delete(favoritesURL + property.id)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  handleError(error) {
+    console.error(error);
+    return Observable.throw(error.json().error || 'Server error');
+  }
 }

@@ -1,4 +1,5 @@
 import {App, IonicApp, Platform} from 'ionic-angular';
+import {WelcomePage} from './pages/welcome/welcome';
 import {PropertyListPage} from './pages/property-list/property-list';
 import {BrokerListPage} from './pages/broker-list/broker-list';
 import {FavoriteListPage} from './pages/favorite-list/favorite-list';
@@ -25,13 +26,14 @@ class MyApp {
 
     // set our app's pages
     this.pages = [
+      {title: 'Welcome', component: WelcomePage, icon: "bookmark"},
       {title: 'Properties', component: PropertyListPage},
       {title: 'Brokers', component: BrokerListPage},
       {title: 'Favorites', component: FavoriteListPage}
     ];
 
-    // make PropertyListPage the root (or first) page
-    this.rootPage = PropertyListPage;
+    // make WelcomePage the root (or first) page
+    this.rootPage = WelcomePage;
   }
 
   initializeApp() {
@@ -43,8 +45,6 @@ class MyApp {
   }
 
   openPage(page) {
-    // close the menu when clicking a link from the menu
-    this.app.getComponent('leftMenu').close();
     // navigate to the new page if it is not the current page
     let nav = this.app.getComponent('nav');
     nav.setRoot(page.component);
